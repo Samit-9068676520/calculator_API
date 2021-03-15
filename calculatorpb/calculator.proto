@@ -1,0 +1,30 @@
+syntax="proto3";
+package calculator;
+option go_package="calculatorpb";
+message CalculatorRequest{
+    int32 first_number=1;
+    int32 last_number=2;
+}
+message CalculatorResponse{
+    int32 result=1;
+}
+message CalculatorManyTimeRequest{
+    int32 number=1;
+}
+message CalculatorManyTimeResponse{
+    int32 result=1;
+}
+message ComputeAverageRequest{
+    int32 number=1;
+}
+message ComputeAverageResponse{
+    double result=1;
+}
+service CalculatorService{
+    //unary rpc
+    rpc Sum (CalculatorRequest) returns (CalculatorResponse){};
+    //server streaming
+    rpc PrimeDeComposition (CalculatorManyTimeRequest) returns (stream CalculatorManyTimeResponse){};
+    //Client streaming
+    rpc ComputeAverage (stream ComputeAverageRequest) returns (ComputeAverageResponse){};
+}
